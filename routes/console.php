@@ -16,3 +16,40 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+Artisan::command('fake:seller {quantity}', function ($quantity) {
+
+	$quantity = intval ($quantity);
+	if ($quantity > 0) {
+		$this->comment("Creating $quantity sellers.");
+		factory(\App\Models\Seller::class, $quantity)
+			->make ()
+			->each(function($seller){
+				$seller->save();
+			});
+
+		$this->info("Done.");
+
+	} else {
+		$this->error('Quantity must be greater than 0');
+	}
+});
+
+Artisan::command('fake:orders {quantity}', function ($quantity) {
+
+	$quantity = intval ($quantity);
+	if ($quantity > 0) {
+		$this->comment("Creating $quantity orders.");
+
+		factory(\App\Models\Order::class, $quantity)
+			->make ()
+			->each(function($order){
+				$order->save();
+			});
+
+		$this->info("Done.");
+
+	} else {
+		$this->error('Quantity must be greater than 0');
+	}
+});
