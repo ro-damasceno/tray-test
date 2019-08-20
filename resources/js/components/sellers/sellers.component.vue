@@ -51,7 +51,7 @@
                 </tbody>
             </table>
 
-            <paginator-component v-on:paging="onPaging" v-bind:paginator="paginator"></paginator-component>
+            <paginator-component v-on:paging="onPaging" v-bind:paginator="paginator && paginator.total > 0"></paginator-component>
         </div>
 
         <seller-edit-modal ref="dialog"></seller-edit-modal>

@@ -42266,7 +42266,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("paginator-component", {
-                attrs: { paginator: _vm.paginator },
+                attrs: { paginator: _vm.paginator && _vm.paginator.total > 0 },
                 on: { paging: _vm.onPaging }
               })
             ],

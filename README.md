@@ -20,6 +20,11 @@ npm install
 npm run prod
 ```
 
+- Gera a chave de criptografia para o funcionamento do laravel.
+```
+php artisan key:generate
+```
+
 ### Configuração
 
 Uma vez que os pacotes estejam instalados, deve-se configurar o ambiente. 
