@@ -7,6 +7,8 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+window.VueRouter = require('vue-router').default;
+window.VueMoment = Vue.use(require('vue-moment'));
 
 /**
  * The following block of code may be used to automatically register your
@@ -19,7 +21,14 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+const SellerComponent 	     = require('./components/sellers/sellers.component.vue').default;
+const SellerProfileComponent = require('./components/sellers/seller-profile.component.vue').default;
+
+Vue.component('seller-edit-modal', require('./components/sellers/seller-edit.component.vue').default);
+Vue.component('order-edit-modal', require('./components/orders/order-edit.component.vue').default);
+
+Vue.component('order-list', require('./components/orders/orders.component.vue').default);
+Vue.component('paginator-component', require('./components/paginator/paginator.component.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -27,6 +36,14 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app',
+
+const routes = [
+	{ path: '/', component: SellerComponent },
+	{ path: '/sellers/:id', component: SellerProfileComponent, name: 'seller-profile' }
+];
+
+const router = new VueRouter({
+	routes
 });
+
+const app = new Vue({ router }).$mount('#app');

@@ -19,7 +19,7 @@ class SellerRepository extends BaseRepository {
 
 		$this->getReader ()
 			->setFindableAttributes ('name', 'email')
-			->setSortableAttributes ('name', 'email');
+			->setSortableAttributes ('name', 'email', 'updated_at', 'created_at');
 
 		$this->validator = new SellerValidator();
 	}
@@ -37,7 +37,16 @@ class SellerRepository extends BaseRepository {
 	function onFinding ($query, $options) {
 		$query
 			->select (['*'])
-			->selectSub ("SELECT SUM(commission) FROM orders WHERE orders.seller_id = sellers.id", 'commissions');
+			->selectSub ("SELECT SUM(commission) FROM orders WHERE orders.seller_id = sellers.id", 'commission');
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	function onFindingOne ($query, $options) {
+		$query
+			->select (['*'])
+			->selectSub ("SELECT SUM(commission) FROM orders WHERE orders.seller_id = sellers.id", 'commission');
 	}
 
 	/**

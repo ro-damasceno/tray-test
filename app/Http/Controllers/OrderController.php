@@ -19,14 +19,14 @@ class OrderController extends Controller {
 	}
 
 	function index () {
-		$orders = $this->repository->find ($this->getQueries (), true, $this->getPaginationOptions ());
-		return response(['orders' => $orders]);
+		$orders = $this->repository->find ($this->getQueries (['seller_id']), true, $this->getPaginationOptions ());
+		return response($orders);
 	}
 
 	function show ($id) {
 		try {
 			$order = $this->repository->findOrFail ($id);
-			return response(['order' => $order]);
+			return response($order);
 
 		} catch (\Illuminate\Database\Eloquent\ModelNotFoundException $exception) {
 			return response(['error' => 'Pedido não encontrado'], 404);
@@ -40,7 +40,7 @@ class OrderController extends Controller {
 
 		try {
 			$order = $this->repository->create (request ()->all ());
-			return response(['order' => $order], 201);
+			return response($order, 201);
 
 		} catch (\Illuminate\Validation\ValidationException $exception) {
 			return response([
@@ -57,7 +57,7 @@ class OrderController extends Controller {
 
 		try {
 			$order = $this->repository->update ($id, request ()->all ());
-			return response(['order' => $order]);
+			return response($order);
 
 		} catch (\Illuminate\Validation\ValidationException $exception) {
 

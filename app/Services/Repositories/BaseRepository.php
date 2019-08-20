@@ -51,6 +51,15 @@ abstract class BaseRepository {
 	function onFinding ($query, $options) {}
 
 	/**
+	 * Callback para manipular a busca.
+	 *
+	 * @param \Illuminate\Database\Query\Builder $query
+	 * @param array $options
+	 * @return void
+	 */
+	function onFindingOne ($query, $options) {}
+
+	/**
 	 * Callback para manipular os atributos antes de criar um novo registro.
 	 *
 	 * @param array $attributes

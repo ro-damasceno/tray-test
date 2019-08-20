@@ -20,13 +20,13 @@ class SellerController extends Controller {
 
 	function index () {
 		$sellers = $this->repository->find ($this->getQueries (), true, $this->getPaginationOptions ());
-		return response(['sellers' => $sellers]);
+		return response($sellers);
 	}
 
 	function show ($id) {
 		try {
 			$seller = $this->repository->findOrFail ($id);
-			return response(['seller' => $seller]);
+			return response($seller);
 
 		} catch (\Illuminate\Database\Eloquent\ModelNotFoundException $exception) {
 			return response(['error' => 'Vendedor não encontrado'], 404);
@@ -40,7 +40,7 @@ class SellerController extends Controller {
 
 		try {
 			$seller = $this->repository->create (request ()->all ());
-			return response(['seller' => $seller], 201);
+			return response($seller, 201);
 
 		} catch (\Illuminate\Validation\ValidationException $exception) {
 			return response([
@@ -57,7 +57,7 @@ class SellerController extends Controller {
 
 		try {
 			$seller = $this->repository->update ($id, request ()->all ());
-			return response(['seller' => $seller]);
+			return response($seller);
 
 		} catch (\Illuminate\Validation\ValidationException $exception) {
 

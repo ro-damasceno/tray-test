@@ -28,13 +28,17 @@ class ReadBehavior extends \App\Services\Repositories\Behaviors\Base implements 
 	 * {@inheritdoc}
 	 */
 	function findOne($id, array $options = []) {
-		return $this->newQueryBuilder ()->find ($id);
+		$query = $this->newQueryBuilder ();
+		$this->getRepository ()->onFindingOne ($query, $options);
+		return $query->find ($id);
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	function findOrFail($id, array $options = []) {
-		return $this->newQueryBuilder ()->findOrFail ($id);
+		$query = $this->newQueryBuilder ();
+		$this->getRepository ()->onFindingOne ($query, $options);
+		return $query->findOrFail ($id);
 	}
 }
