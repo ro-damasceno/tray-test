@@ -17,7 +17,7 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
 
-Artisan::command('fake:seller {quantity}', function ($quantity) {
+Artisan::command('seed:sellers {quantity}', function ($quantity) {
 
 	$quantity = intval ($quantity);
 	if ($quantity > 0) {
@@ -35,7 +35,7 @@ Artisan::command('fake:seller {quantity}', function ($quantity) {
 	}
 });
 
-Artisan::command('fake:orders {quantity}', function ($quantity) {
+Artisan::command('seed:orders {quantity}', function ($quantity) {
 
 	$quantity = intval ($quantity);
 	if ($quantity > 0) {
@@ -52,4 +52,9 @@ Artisan::command('fake:orders {quantity}', function ($quantity) {
 	} else {
 		$this->error('Quantity must be greater than 0');
 	}
+});
+
+Artisan::command('report:daily-billing', function () {
+	$repository = new \App\Services\Repositories\SellerRepository;
+	$repository->sendDailyReport ();
 });
