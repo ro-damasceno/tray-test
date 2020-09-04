@@ -26,6 +26,6 @@
         "sweetalert2": "^8.16.2"
     },
     "dependencies": {
-        "vue-moment": "^4.0.0"
+        "vue-moment": "^4.1.0"
     }
 }
